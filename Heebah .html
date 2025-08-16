@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Go Out With Me?</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(8px);
+    }
+
+    .message {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      min-height: 100px;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      margin: 10px;
+      background: #ff5f9e;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: #ff2d88;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .final {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ff2d88;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff; }
+      to { text-shadow: 0 0 25px #ff2d88, 0 0 50px #fff; }
+    }
+
+    /* Floating Hearts */
+    .heart {
+      position: absolute;
+      bottom: -10px;
+      color: #ff2d88;
+      font-size: 20px;
+      animation: floatUp 5s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 0.7; }
+      100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="message" id="message">Hey, Nova.💖</div>
+    <button id="nextBtn">Next</button>
+    <div class="hidden" id="finalStep">
+      <div class="final">Will you be my Girlfriend?#8098ff💕</div>
+      <button onclick="alert('Yay! You made me the happiest 😍')">Yes</button>
+      <button onclick="alert('There’s no other option 😅')">Of course Yes</button>
+    </div>
+  </div>
+
+  <script>
+    const messages = [
+      "Hey [Her Name] 💖",
+      "I must confess baby, i am stil crazily in love with you. Sometimes i say to myself, do you not know how to stop? Then i discovered, that i really don't know how to stop.",
+      "You are one thing that has happened to me so far tnat i still don't want to press the control Z button for. I don't want to ever undo you from my life",
+      "So, I want to tell you this, that in my mind I do imagine that a day will come and I will ask the question in the coming slide and your answer will be amongst the two options "
+    ];
+
+    let index = 0;
+    const messageEl = document.getElementById("message");
+    const nextBtn = document.getElementById("nextBtn");
+    const finalStep = document.getElementById("finalStep");
+
+    nextBtn.addEventListener("click", () => {
+      index++;
+      if (index < messages.length) {
+        messageEl.textContent = messages[index];
+      } else {
+        messageEl.classList.add("hidden");
+        nextBtn.classList.add("hidden");
+        finalStep.classList.remove("hidden");
+      }
+    });
+
+    // Floating hearts generator
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    setInterval(createHeart, 500);
+  </script>
+</body>
+</html>
